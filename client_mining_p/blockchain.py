@@ -139,11 +139,7 @@ print(blockchain.hash(blockchain.last_block))
 def mine():
     data = request.get_json()
     print(data)
-    # # Run the proof of work algorithm to get the next proof
-    # proof = blockchain.proof_of_work(blockchain.last_block)
-    # # Forge the new Block by adding it to the chain with the proof
-    # previous_hash = blockchain.hash(blockchain.last_block)
-    # new_block = blockchain.new_block(proof, previous_hash)
+
     if "proof" not in data:
         response = {
             "message": "missing proof"
