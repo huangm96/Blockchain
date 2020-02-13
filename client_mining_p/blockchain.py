@@ -149,16 +149,26 @@ def mine():
             "message": "missing proof"
         }
         return jsonify(response), 400
+
     elif "id" not in data:
         response = {
             "message": "missing id"
         }
         return jsonify(response), 400
+    print("valid", blockchain.last_block, "proof", data["proof"])
+    block_string = json.dumps(blockchain.last_block, sort_keys=True)
+    if Blockchain.valid_proof(block_string, data["proof"]) is False:
+        response = {
+            "message": "valid_proof fail"
+        }
+        return jsonify(response), 200
     else:
+        previous_hash = blockchain.hash(blockchain.last_block)
+        new_block = blockchain.new_block(data["proof"], previous_hash)
         response = {
             "message": "New Block Forged"
         }
-    return jsonify(response), 200
+        return jsonify(response), 200
 
 
 @app.route('/chain', methods=['GET'])
@@ -175,7 +185,7 @@ def get_last_block():
 
     response = {
         # TODO: Send a JSON response with the new block
-        "last_block": ' '
+        "last_block": blockchain.last_block
     }
 
     return jsonify(response), 200
