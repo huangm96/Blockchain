@@ -6,7 +6,7 @@ import Wallet from "./components/Wallet"
 function App() {
   return (
     <div className="App">
-      <h1>Wallet for Lambda Mine</h1>
+      <h1> Lambda Mine</h1>
       <Route exact path="/" component={Login}/>
       <Route path="/main" component={Wallet}/>
     </div>
